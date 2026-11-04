@@ -34,8 +34,9 @@ retrievers = load_vector_stores()
 llm = ChatGroq(model = "qwen/qwen3.8-27b", temperature=0.2)
 
 #Prompts and chains
-system = """Your work is to select the books as per the user's requirements with the price, rating, availability in numbers if in stock , and summarize the description concisely.
-If the question asked is not related, politely reply as: "Not a related query, please try again."
+system = """Your work is to select the books as per the users requirements with the price,rating, availability and summarize description. 
+Each query has minimum 5 book as output.
+if the question asked is not related than politely reply as not related query please try again. and suggest random 5 books.
 Context:
 {context}"""
 
