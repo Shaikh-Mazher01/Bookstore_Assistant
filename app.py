@@ -41,7 +41,8 @@ def load_vector_stores():
 
     if store._collection.count()==0:
         docs=load_document()
-        store.add_documents(docs)
+        for i in range(0,len(docs),500):
+            store.add_documents(docs[i:i+500])
 
     return store.as_retriever(search_kwargs = {"k":5})
 
