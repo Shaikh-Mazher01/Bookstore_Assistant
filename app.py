@@ -32,17 +32,12 @@ def load_document():
 @st.cache_resource
 def load_vector_stores():
     embeddings = HuggingFaceEmbeddings(model_name = "sentence-transformers/all-MiniLM-L6-v2")
-    persist_direct = "books_db"
+    # persist_direct = "books_db"
     store = Chroma(
-        persist_directory=persist_direct,
         embedding_function=embeddings,
         collection_name= "BOOKS"
     )
-
-    if store._collection.count()==0:
-        docs=load_document()
-        for i in range(0,len(docs),500):
-            store.add_documents(docs[i:i+500])
+    store.add_documents(load_document())
 
     return store.as_retriever(search_kwargs = {"k":5})
 
